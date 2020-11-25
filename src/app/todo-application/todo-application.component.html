@@ -1,5 +1,6 @@
 <div className="container">
-    <div className="container">
+    <div className="container" *ngIf="!todoApp">
+        <button class="btn btn-success"  (click)="create($event)">CREATE</button>
         <table className='table-striped' border='1' align="center">
             <thead>
                 <tr>
@@ -9,6 +10,8 @@
                     <th>Due Date</th>
                     <th>Status</th>
                     <th>View</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -18,9 +21,44 @@
                     <td> {{todoApp.description}} </td>
                     <td> {{todoApp.dueDate | date: 'dd-MMM-yyyy' }} </td>
                     <td> {{todoApp.status}} </td>
-                    <td><button (click)="view($event, todoApp)">VIEW</button></td>
+                    <td><button class="btn btn-success"  (click)="view($event, todoApp)">VIEW</button></td>
+                    <td><button class="btn btn-success"  (click)="edit($event, todoApp)">EDIT</button></td>
+                    <td><button class="btn btn-error"  (click)="delete($event, todoApp)">DELETE</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="todoApp">
+        <table className='table-striped' border='1' align="center">
+            <tbody>
+                <tr>
+                    <th>Id</th><td> {{todoApp.id}} </td>
+                </tr><tr>
+                    <th>Title</th>
+                    <td *ngIf="!isEdit"> {{todoApp.title}} </td>
+                    <td *ngIf="isEdit"><input [(ngModel)]="todoApp.title" size="50" /></td>
+                </tr><tr>
+                    <th>Description</th>
+                    <td *ngIf="!isEdit">{{todoApp.description}}</td>
+                    <td *ngIf="isEdit"><textarea [(ngModel)]="todoApp.description" rows="3" cols="47"></textarea></td>
+                </tr><tr>
+                    <th>Due Date</th>
+                    <td *ngIf="!isEdit"> {{todoApp.dueDate | date: 'dd-MMM-yyyy' }} </td>
+                    <td *ngIf="isEdit"> <input type="date" [(ngModel)]="todoApp.dueDate" /> </td>
+                </tr><tr>
+                    <th>Status</th>
+                    <td *ngIf="!isEdit"> {{todoApp.status}} </td>
+                    <td *ngIf="isEdit"> 
+                        <select [(ngModel)]="todoApp.status">
+                            <option value="">--Select Status--</option>
+                            <option *ngFor="let status of todoStatus" [ngValue]="status">{{status}}</option>
+                         </select>
+                    </td>
+                </tr><tr *ngIf="isEdit">
+                    <td colspan="2"><button class="btn btn-error"  (click)="submit($event, todoApp)">SUBMIT</button></td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
+

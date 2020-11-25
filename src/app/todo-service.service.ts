@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { TodoApp } from './todo-application//todo-app';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,8 +16,19 @@ export class TodoServiceService {
     return this.httpClient.get(this.TODO_API_URL+'/findAll');
   }
 
-  retrieveById(id) {
-    return this.httpClient.get(this.TODO_API_URL+'/find/'+id);
+  public deleteItem(id:number){
+    return this.httpClient.delete(this.TODO_API_URL+'/deleteById/'+id);
   }
 
+  public updateItem(todoApp: TodoApp){
+    return this.httpClient.put(this.TODO_API_URL+'/update', todoApp);
+  }
+
+  public retrieveStatus(){
+    return this.httpClient.get(this.TODO_API_URL+'/getStatus');
+  }
+
+  public createItem(todoApp: TodoApp){
+    return this.httpClient.post(this.TODO_API_URL+'/create', todoApp);
+  }
 }

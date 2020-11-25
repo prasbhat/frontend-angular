@@ -1,4 +1,4 @@
-export interface TodoApplicaton {
+export interface TodoApp {
     id: number;
     title: string;
     description: string;
