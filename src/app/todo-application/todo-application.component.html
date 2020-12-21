@@ -5,7 +5,6 @@
         <table class='table-striped' border='1' align="center">
             <thead>
                 <tr>
-                    <th>Id</th>
                     <th>Title</th>
                     <th>Description</th>
                     <th>Due Date</th>
@@ -17,7 +16,6 @@
             </thead>
             <tbody>
                 <tr *ngFor="let todoApp of todoApplication">
-                    <td> {{todoApp.id}} </td>
                     <td> {{todoApp.title}} </td>
                     <td> {{todoApp.description}} </td>
                     <td> {{todoApp.dueDate | date: 'dd-MMM-yyyy' }} </td>
@@ -35,8 +33,6 @@
         <table class='table-striped' border='1' align="center">
             <tbody>
                 <tr>
-                    <th>Id</th><td> {{todoApp.id}} </td>
-                </tr><tr>
                     <th>Title</th>
                     <td *ngIf="!isEdit"> {{todoApp.title}} </td>
                     <td *ngIf="isEdit"><input [(ngModel)]="todoApp.title" size="35" /></td>
