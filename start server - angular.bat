@@ -1,1 +1,1 @@
-ng serve --open
+npm run ng serve --open
