@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoServiceService } from '../todo-service.service';
-import { TodoApp } from './todo-app';
-
+import { TodoApplication } from './todo-application';
+import { TodoTaskComments } from "./to-do-task-comments";
 
 @Component({
   selector: 'app-todo-application',
@@ -9,10 +9,12 @@ import { TodoApp } from './todo-app';
   styleUrls: ['./todo-application.component.css']
 })
 export class TodoApplicationComponent implements OnInit {
-  todoApplication:TodoApp;
-  todoApp: TodoApp;
+  todoApplication:TodoApplication;
+  todoTaskComments: TodoTaskComments;
+  isSinglePageView: Boolean = false;
   isEdit: Boolean = false;
   todoStatus = [];
+  showToggleCommentTable:boolean = false;
 
   constructor(private todoService: TodoServiceService) { }
 
@@ -22,55 +24,59 @@ export class TodoApplicationComponent implements OnInit {
    }
 
    retrieveAllTodoList() {
-    this.todoService.retrieveAllTodoList().subscribe((data: TodoApp) => {
-      console.log(data);
+    this.todoService.retrieveAllTodoList().subscribe((data: TodoApplication) => {
       this.todoApplication = data;
     })
    }
 
-   view(event, todoApp) {
-    console.log("TodoApp="+JSON.stringify(todoApp));
-    this.todoApp = todoApp;
+   retrieveStatus() {
+    this.todoService.retrieveStatus().subscribe((data: any[]) => {
+      this.todoStatus = data;
+    })
    }
 
-   delete(event, todoApp) {
-    console.log("TodoApp Id="+todoApp.id);
-    this.todoService.deleteItem(todoApp.id).subscribe((data: string) => {
-      console.log(data);
-    })
+   view(todoApp:TodoApplication) {
+    this.todoApplication = todoApp;
+    this.isSinglePageView = true;
+   }
+
+   delete(todoApp:TodoApplication) {
+    this.todoService.deleteItem(todoApp.id).subscribe((data: string) => {})
     location.reload();
    }
 
-   edit(event, todoApp:TodoApp) {
-    console.log("TodoApp="+JSON.stringify(todoApp));
-    this.todoApp = todoApp;
+   edit(todoApp:TodoApplication) {
+    this.todoApplication = todoApp;
+    this.todoTaskComments = {todoTaskCommentsId:null, taskComments:'', creationDate: null};
     this.isEdit = true;
+    this.isSinglePageView = true;
    }
 
-   submit(event, todoApp:TodoApp) {
-    console.log("TodoApp="+JSON.stringify(todoApp));
-    if(todoApp.id != 0) // For create, id=0
-    this.todoService.updateItem(todoApp).subscribe((data: TodoApp) => {
-      console.log(data);
-    })
-    else {
-      this.todoService.createItem(todoApp).subscribe((data: TodoApp) => {
-        console.log(data);
+   create() {
+    this.todoApplication = {id:0,title:'', description:'', creationDate: null, dueDate: new Date(), status:'', todoTaskCommentsSet:null};
+    this.isEdit = true;
+    this.isSinglePageView = true;
+   }
+
+   submit(todoApplication:TodoApplication, todoTaskComments:TodoTaskComments) {
+    if(todoApplication.id != 0) {// For Update
+      var todoTaskCommentsArray= [];
+      todoTaskCommentsArray.push(todoTaskComments);
+      todoApplication.todoTaskCommentsSet=todoTaskCommentsArray;
+      
+      this.todoService.updateItem(todoApplication).subscribe((data: TodoApplication) => {
+        this.todoApplication = data;
+      })
+    }
+    else { //For Create, id = 0
+      this.todoService.createItem(todoApplication).subscribe((data: TodoApplication) => {
+        this.todoApplication = data;
       })
     }
     location.reload();
    }
 
-   retrieveStatus() {
-    this.todoService.retrieveStatus().subscribe((data: any[]) => {
-      console.log(data);
-      this.todoStatus = data;
-    })
-   }
-
-   create(event) {
-    console.log("Create todoApp");
-    this.todoApp = {id:0,title:'', description:'', dueDate: new Date(), status:''};
-    this.isEdit = true;
+   toggleCommentsTable(){
+     this.showToggleCommentTable = !this.showToggleCommentTable;
    }
 }
