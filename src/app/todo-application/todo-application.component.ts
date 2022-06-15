@@ -41,7 +41,7 @@ export class TodoApplicationComponent implements OnInit {
    }
 
    delete(todoApp:TodoApplication) {
-    this.todoService.deleteItem(todoApp.id).subscribe((data: string) => {})
+    this.todoService.deleteItem(todoApp.systemTasksId).subscribe((data: string) => {})
     location.reload();
    }
 
@@ -53,13 +53,13 @@ export class TodoApplicationComponent implements OnInit {
    }
 
    create() {
-    this.todoApplication = {id:0,title:'', description:'', creationDate: null, dueDate: new Date(), status:'', todoTaskCommentsSet:null};
+    this.todoApplication = {systemTasksId:0,title:'', description:'', creationDate: null, dueDate: new Date(), status:'', todoTaskCommentsSet:null};
     this.isEdit = true;
     this.isSinglePageView = true;
    }
 
    submit(todoApplication:TodoApplication, todoTaskComments:TodoTaskComments) {
-    if(todoApplication.id != 0) {// For Update
+    if(todoApplication.systemTasksId != 0) {// For Update
       var todoTaskCommentsArray= [];
       todoTaskCommentsArray.push(todoTaskComments);
       todoApplication.todoTaskCommentsSet=todoTaskCommentsArray;

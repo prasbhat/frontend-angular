@@ -1,5 +1,5 @@
 export interface TodoApplication {
-    id: number;
+    systemTasksId: number;
     title: string;
     description: string;
     creationDate: Date;

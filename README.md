@@ -1,27 +1,22 @@
-# FrontendAngular
+# Frontend-Angular
+In this project, I will be developing a ***Model-View-Controller (MVC)*** application using **AngularJS Framework**, *which would consume the REST APIs exposed by* the **[Spring Boot Microservice](https://github.com/prasbhat/microservice-springboot-h2)** project created earlier.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.1.
+## Requirements
+- **Node.js v8+**
+- **[Visual Studio Code](https://aka.ms/win32-x64-user-stable)** - An IDE for developing the code. You can use any IDE of your choice, that supports *TypeScript*. I will be using the **Visual Studio Code**.
 
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Develop the frontend application using the **AngularJS Framework**, so that we can *consume the REST APIs, mentioned below, exposed by our microservice application*:
+| Description | CRUD Operation  | HTTP Method | REST API Endpoint |
+|:-----------:|:--------------:|:-----------:|:-----------------:|
+| Create New Todo Task | CREATE | POST | `/tasks` |
+| Fetch All Todo Tasks | READ | GET | `/tasks` |
+| Fetch One Todo Task | READ | GET | `/tasks/{id}` |
+| Update One Specific Todo Task | UPDATE | PUT | `/tasks` |
+| Delete One Specific Todo Task | DELETE | DELETE | `/tasks/{id}` |
 
 ## Further help
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.1.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Read the [HELP.md](/HELP.md) file for guide on using Angular Commands.
+
+More detailed documentation regarding this project can be found [here](https://myzonesoft.com/post/frontend-angularjs/).
