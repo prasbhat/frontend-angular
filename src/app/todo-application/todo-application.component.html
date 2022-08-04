@@ -42,7 +42,7 @@
                     <th>Description</th>
                     <td *ngIf="!isEdit">{{todoApplication.description}}</td>
                     <td *ngIf="isEdit"><textarea [(ngModel)]="todoApplication.description" rows="3" cols="38"></textarea></td>
-                </tr><tr>
+                </tr><tr *ngIf="todoApplication.systemTasksId != null">
                     <th>Creation Date</th>
                     <td> {{todoApplication.creationDate | date: 'dd-MMM-yyyy' }} </td>
                 </tr><tr>
@@ -58,7 +58,7 @@
                             <option *ngFor="let status of todoStatus" [ngValue]="status">{{status}}</option>
                          </select>
                     </td>
-                </tr><tr *ngIf="todoApplication.systemTasksId != 0">
+                </tr><tr *ngIf="todoApplication.systemTasksId != null">
                     <th>
                         Comments
                     </th>

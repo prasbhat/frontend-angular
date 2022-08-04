@@ -53,13 +53,13 @@ export class TodoApplicationComponent implements OnInit {
    }
 
    create() {
-    this.todoApplication = {systemTasksId:0,title:'', description:'', creationDate: null, dueDate: new Date(), status:'', todoTaskCommentsSet:null};
+    this.todoApplication = {systemTasksId:null, title:'', description:'', creationDate: null, dueDate: new Date(), status:'', todoTaskCommentsSet:null};
     this.isEdit = true;
     this.isSinglePageView = true;
    }
 
    submit(todoApplication:TodoApplication, todoTaskComments:TodoTaskComments) {
-    if(todoApplication.systemTasksId != 0) {// For Update
+    if(todoApplication.systemTasksId != null) {// For Update
       var todoTaskCommentsArray= [];
       todoTaskCommentsArray.push(todoTaskComments);
       todoApplication.todoTaskCommentsSet=todoTaskCommentsArray;
@@ -68,7 +68,7 @@ export class TodoApplicationComponent implements OnInit {
         this.todoApplication = data;
       })
     }
-    else { //For Create, id = 0
+    else { //For Create, id = null
       this.todoService.createItem(todoApplication).subscribe((data: TodoApplication) => {
         this.todoApplication = data;
       })
